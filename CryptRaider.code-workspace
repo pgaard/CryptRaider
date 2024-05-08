@@ -36,7 +36,8 @@
 			"deque": "cpp",
 			"future": "cpp",
 			"string": "cpp"
-		}
+		},
+		"FSharp.suggestGitignore": false
 	},
 	"extensions": {
 		"recommendations": [

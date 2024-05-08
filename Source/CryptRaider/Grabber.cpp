@@ -78,6 +78,8 @@ void UGrabber::Grab()
 				NAME_None, HitResult.ImpactPoint,
 				GetComponentRotation()); // grabber rotation, not the grabbed object rotation
 
+		// HitActor->SetActorRotation(FRotator(0, 0, 0)); // gets stuck in the floor
+
 		// DrawDebugSphere(GetWorld(), HitResult.Location, 10, 10, FColor::Green, false, 5);
 		// DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10, 10, FColor::Yellow, false, 5);
 		// AActor *actor = HitResult.GetActor();

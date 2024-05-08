@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/BoxComponent.h"
 #include "Mover.h"
+#include "Components/TextRenderComponent.h"
 #include "TriggerComponent.generated.h"
 
 /**
@@ -30,10 +31,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetMover(UMover *NewMover);
 
+	UFUNCTION(BlueprintCallable)
+	void SetTextRender(UTextRenderComponent *NewTextRender);
+
 private:
 	AActor *GetAcceptableActor();
 
 	UMover *Mover;
+
+	UTextRenderComponent *TextRender;
 
 	UPROPERTY(EditAnywhere)
 	FName TriggerTag;

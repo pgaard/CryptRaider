@@ -22,8 +22,18 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
     UPrimitiveComponent *component = Cast<UPrimitiveComponent>(triggeredActor->GetRootComponent());
     if (component != nullptr)
     {
-      component->SetSimulatePhysics(false);
-      triggeredActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
+      if (Mover != nullptr)
+      {
+        component->SetSimulatePhysics(false);
+        triggeredActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
+      }
+      else if (TextRender != nullptr)
+      {
+        if (TextRender->bHiddenInGame)
+        {
+          TextRender->SetHiddenInGame(false);
+        }
+      }
     }
 
     if (Mover != nullptr)
@@ -45,6 +55,11 @@ void UTriggerComponent::SetMover(UMover *NewMover)
   Mover = NewMover;
 }
 
+void UTriggerComponent::SetTextRender(UTextRenderComponent *NewTextRender)
+{
+  TextRender = NewTextRender;
+}
+
 AActor *UTriggerComponent::GetAcceptableActor()
 {
   TArray<AActor *> OverlappingActors;
@@ -56,9 +71,10 @@ AActor *UTriggerComponent::GetAcceptableActor()
     for (AActor *Actor : OverlappingActors)
     {
       // UE_LOG(LogTemp, Display, TEXT("Overlapping actor %s"), *Actor->GetActorNameOrLabel());
-      //   the overlapping actor only works if it has the Trigger tag on it.
+      //    the overlapping actor only works if it has the Trigger tag on it.
       if (Actor->ActorHasTag(TriggerTag) && !Actor->Tags.Contains("Grabbed"))
       {
+        // UE_LOG(LogTemp, Display, TEXT("ActorHasTag actor %s %s"), *Actor->GetActorNameOrLabel(), *TriggerTag.ToString());
         return Actor;
       }
     }
